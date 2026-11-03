@@ -1,0 +1,1 @@
+import{S as e,b as t,f as n,g as r,i,s as a,y as o}from"./index-Dc9NyX4V.js";import{t as s}from"./axios-DIouOxUT.js";var c={class:`content`},l={__name:`CatFactsPage`,async setup(l){let u,d,f=o(``);return f.value=([u,d]=r(()=>s.get(`https://catfact.ninja/fact`)),u=await u,d(),u).data.fact,(r,o)=>(n(),a(`div`,c,[i(`h1`,null,e(t(f)),1)]))}};export{l as default};
