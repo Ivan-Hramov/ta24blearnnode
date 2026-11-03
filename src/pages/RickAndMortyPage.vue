@@ -52,7 +52,7 @@ onMounted(getCharacters)
 </script>
 
 <template>
-  <fieldset :disabled="loading">
+  <div>
     <SearchBar @search="search" />
 
     <div ref="characterList">
@@ -71,5 +71,5 @@ onMounted(getCharacters)
       :total-pages="totalPages"
       @page-change="currentPage = $event"
     />
-  </fieldset>
+  </div>
 </template>
