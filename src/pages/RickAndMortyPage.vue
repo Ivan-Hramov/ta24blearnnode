@@ -3,11 +3,11 @@ import { onMounted, ref, watch } from 'vue'
 import axios from 'axios'
 import CharacterCard from '../components/CharacterCard.vue'
 import PaginationBar from '../components/PaginationBar.vue'
+import SearchBar from '../components/SearchBar.vue'
 
 const characters = ref([])
 const currentPage = ref(1)
 const totalPages = ref(0)
-const searchValue = ref('')
 const searchName = ref('')
 const loading = ref(false)
 const error = ref('')
@@ -23,17 +23,19 @@ async function getCharacters() {
     })
     characters.value = res.data.results
     totalPages.value = res.data.info.pages
-  } catch {
+  } catch (errorResponse) {
     characters.value = []
     totalPages.value = 0
-    error.value = 'Could not load characters. Try another search.'
+    error.value = errorResponse.response?.status === 404
+      ? 'No characters found'
+      : 'Could not load characters. Please try again.'
   }
 
   loading.value = false
 }
 
-function search() {
-  searchName.value = searchValue.value
+function search(query) {
+  searchName.value = query
   if (currentPage.value === 1) {
     getCharacters()
   } else {
@@ -51,10 +53,7 @@ onMounted(getCharacters)
 
 <template>
   <fieldset :disabled="loading">
-    <form @submit.prevent="search">
-      <input v-model="searchValue" type="search" aria-label="Search characters" />
-      <button type="submit">Search</button>
-    </form>
+    <SearchBar @search="search" />
 
     <div ref="characterList">
       <p v-if="loading">Loading...</p>
