@@ -4,6 +4,11 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes: [
     {
+      path: '/text-encoding',
+      name: 'text-encoding',
+      component: () => import('../pages/TextEncodingPage.vue'),
+    },
+    {
       path: '/rick-and-morty',
       alias: '/',
       name: 'rick-and-morty',
